@@ -1,0 +1,15 @@
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM_PS4.Form1.resources
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM_PS4.Properties.Resources.resources
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.csproj.GenerateResource.cache
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.csproj.CoreCompileInputs.cache
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\DOOM PS4.exe.config
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\DOOM PS4.exe
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\DOOM PS4.pdb
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.exe
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.pdb
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\libdebug.dll
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\SharpDisasm.dll
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.csproj.CopyComplete
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\Be.Windows.Forms.HexBox.dll
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\bin\Debug\RTFLib.dll
+C:\Users\Brandon\source\repos\DOOM PS4\DOOM PS4\obj\Debug\DOOM PS4.csprojAssemblyReference.cache
