@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cnct = new System.Windows.Forms.Button();
             this.atch = new System.Windows.Forms.Button();
@@ -86,10 +86,12 @@
             this._asmCaveBox = new System.Windows.Forms.TextBox();
             this.cBox = new System.Windows.Forms.TextBox();
             this.stBox = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.RGLogo = new System.Windows.Forms.PictureBox();
             this.Cain532 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.DebugLayout.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -182,8 +184,8 @@
             this._val});
             this.dataGridView1.Location = new System.Drawing.Point(16, 162);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.Size = new System.Drawing.Size(273, 293);
             this.dataGridView1.TabIndex = 16;
             // 
@@ -231,8 +233,8 @@
             // 
             // DisassemblyTextBox
             // 
-            this.DisassemblyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.DisassemblyTextBox.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisassemblyTextBox.BackColor = System.Drawing.Color.Black;
+            this.DisassemblyTextBox.Font = new System.Drawing.Font("Verdana", 11F);
             this.DisassemblyTextBox.ForeColor = System.Drawing.Color.White;
             this.DisassemblyTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.DisassemblyTextBox.Location = new System.Drawing.Point(586, 133);
@@ -485,6 +487,7 @@
             this.jumpbox.TabIndex = 42;
             this.jumpbox.Text = "0x50";
             this.jumpbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.jumpbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // offsetTxt
             // 
@@ -497,6 +500,7 @@
             this.offsetTxt.Text = "0x00010000";
             this.offsetTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.offsetTxt.TextChanged += new System.EventHandler(this.dasAddress_TextChanged);
+            this.offsetTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // writebox
             // 
@@ -506,6 +510,7 @@
             this.writebox.Size = new System.Drawing.Size(261, 22);
             this.writebox.TabIndex = 36;
             this.writebox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.writebox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // jumpminus
             // 
@@ -561,6 +566,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(295, 109);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -716,6 +722,7 @@
             this.cBox.TabIndex = 1;
             this.cBox.Text = "0x00010000";
             this.cBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // stBox
             // 
@@ -725,6 +732,17 @@
             this.stBox.TabIndex = 0;
             this.stBox.Text = "0x00010000";
             this.stBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.stBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(277, 322);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -758,6 +776,17 @@
             this.Cain532.TabStop = false;
             this.Cain532.Click += new System.EventHandler(this.Cain532_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.richTextBox1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.ForeColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(592, 137);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(760, 314);
+            this.richTextBox1.TabIndex = 48;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -778,7 +807,6 @@
             this.Controls.Add(this.@__bp);
             this.Controls.Add(this._wp);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.DisassemblyTextBox);
             this.Controls.Add(this._BP);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.AddressTextBox);
@@ -787,6 +815,8 @@
             this.Controls.Add(this.atch);
             this.Controls.Add(this.cnct);
             this.Controls.Add(this.DebugLayout);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.DisassemblyTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -875,6 +905,8 @@
         private System.Windows.Forms.TextBox stBox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox _li;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

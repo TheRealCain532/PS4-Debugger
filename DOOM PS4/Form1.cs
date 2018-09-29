@@ -32,7 +32,7 @@ namespace PS4_Debugger
         dbreg64 _dbregs;
         public static byte[] oldBytes, write, result, Bytedata;
         string dasAddress = "0x00001000", data;
-        private ulong address => Convert.ToUInt64(dasAddress.Trim().Replace("0x", ""), 16);
+        private ulong address => _a(dasAddress);
         string[] registers = { "rax", "rbx", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15" };
         ulong[] _regValue = new ulong[10];
         public struct GameInfo
@@ -101,7 +101,7 @@ namespace PS4_Debugger
         {
             public int Length;
             public byte[] Bytes;
-            public string Operation, SBytes;
+            public string Operation, SBytes, fullData;
             public ulong Address, nAddress, bAddress;
 
             public InstructionData(ulong _address, int plusOne = 0)
@@ -110,14 +110,18 @@ namespace PS4_Debugger
                 Disassembler.Translator.IncludeAddress = false;
                 Disassembler.Translator.IncludeBinary = false;
                 Instruction[] array = new Disassembler(PS4.ReadMemory(PID, _address, 100), architecture, _address, copyBinaryToInstruction: true, Vendor.Any, 0ul).Disassemble().ToArray();
-
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < array.Length; i++)
+                    stringBuilder.AppendLine($"0x{array[i].Offset.ToString("X")} | {BitConverter.ToString(array[i].Bytes).Replace("-", " ")} | {array[i].ToString()}");
                 Length = array[plusOne].Bytes.Length;
                 Bytes = array[plusOne].Bytes;
-                SBytes = BitConverter.ToString(array[0].Bytes);
+                string _SBytes = BitConverter.ToString(array[0].Bytes);
+                SBytes = _SBytes.Replace("-", " ");
                 Operation = array[plusOne].ToString();
                 Address = array[0].Offset;
                 nAddress = array[1].Offset;
                 bAddress = array[0].Offset - (ulong)array[1].Bytes.Length + 1;
+                fullData = stringBuilder.ToString();
             }
         }
         struct CheatCodes
@@ -177,7 +181,7 @@ namespace PS4_Debugger
             add,
             sub
         }
-        ulong _a(string input) { return Convert.ToUInt64(input.Trim().Replace("0x", ""), 16); }
+        ulong _a(string input) { try { return Convert.ToUInt64(input.Trim().Replace("0x", ""), 16); } catch { return 0; } }
         public static byte[] STB(string hex)
         {
             if ((hex.Length % 2) != 0)
@@ -187,15 +191,6 @@ namespace PS4_Debugger
             for (int i = 0; i < length; i += 2)
                 buffer[i / 2] = Convert.ToByte(hex.Substring(i, 2), 0x10);
             return buffer;
-        }
-
-        void dumpResources()
-        {
-            byte[][] resources = { Resources.Be_Windows_Forms_HexBox, Resources.keystone, Resources.libdebug, Resources.RTFLib, Resources.SharpDisasm };
-            string[] rSources = { "Be.Windows.Forms.HexBox.dll", "keystone.dll", "libdebug.dll", "RTFLib.dll", "SharpDisarm.dll" };
-            for (int i = 0; i < rSources.Length; i++)
-                if (!File.Exists($@"{rSources[i]}"))
-                    File.WriteAllBytes($@"{rSources[i]}", resources[i]);
         }
 
         public Form1()
@@ -228,20 +223,22 @@ namespace PS4_Debugger
                         InstructionData data = new InstructionData(regs.r_rip);
                         _BP.Checked = false;
                         _wp.Checked = true;
-                        Peek(data.bAddress);
+                        Peek(data.Address);
+                        AddressTextBox.Text = $"0x{data.Address.ToString("X")}";
                     }
                 });
             }
             else
             {
-                AddressTextBox.Text = "0x" + regs.r_rip.ToString("X");
                 if (_wp.Checked)
                 {
                     InstructionData data = new InstructionData(regs.r_rip);
                     _BP.Checked = false;
                     _wp.Checked = true;
-                    Peek(data.bAddress);
+                    Peek(data.Address);
+                    AddressTextBox.Text = $"0x{data.Address.ToString("X")}";
                 }
+                //                AddressTextBox.Text = "0x" + regs.r_rip.ToString("X");
             }
         }
 
@@ -269,47 +266,22 @@ namespace PS4_Debugger
             }
         }
 
-        private string GetDisassembly(ulong address, byte[] data)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            ArchitectureMode architecture = ArchitectureMode.x86_64;
-            Disassembler.Translator.IncludeAddress = true;
-            Disassembler.Translator.IncludeBinary = true;
-            foreach (Instruction item in new Disassembler(data, architecture, address, copyBinaryToInstruction: true, Vendor.Any, 0uL).Disassemble())
-            {
-                stringBuilder.AppendLine(item.ToString());
-            }
-            return stringBuilder.ToString();
-        }
-
-        private string GetDisassembly(string address, byte[] data)
-        {
-            ulong _address = Convert.ToUInt64(address.Trim().Replace("0x", ""), 16);
-            StringBuilder stringBuilder = new StringBuilder();
-            ArchitectureMode architecture = ArchitectureMode.x86_64;
-            Disassembler.Translator.IncludeAddress = true;
-            Disassembler.Translator.IncludeBinary = true;
-            foreach (Instruction item in new Disassembler(data, architecture, _address, copyBinaryToInstruction: true, Vendor.Any, 0uL).Disassemble())
-            {
-                stringBuilder.AppendLine($"0x{item.ToString()}");
-            }
-            return stringBuilder.ToString();
-        }
-
         public static string SpliceText(string text, int lineLength)
         {
             return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
         }
 
-        public void Debugging(ulong _address)
+        public void Debugging(ulong address)
         {
+            string adjustment = address.ToString("X");
+            adjustment = adjustment.Remove(adjustment.Length - 1, 1) + "0";
+            ulong _address = _a(adjustment);
             offsetsText.Text = null;
             byte[] bytes;
             RTFBuilderbase builderbase = new RTFBuilder();
             builderbase.Font(RTFFont.CourierNew);
             builderbase.FontSize(22f);
             bytes = PS4.ReadMemory(PID, _address, 500);
-
             for (int i = 0; i < bytes.Length; i++)
             {
                 builderbase.Font(RTFFont.CourierNew);
@@ -338,25 +310,39 @@ namespace PS4_Debugger
             int num4 = (hexCode.Text.Length / 0x30) + 1;
             for (int j = 0; j < num4; j++)
             {
-                offsetsText.Text = offsetsText.Text + "0x" + _address.ToString("X").ToUpper() + Environment.NewLine;
+                offsetsText.Text = $"{offsetsText.Text}0x{_address.ToString("X")}\n";
+                //offsetsText.Text = offsetsText.Text + "0x" + _address.ToString("X") + Environment.NewLine;
                 _address += 0x10;
             }
         }
+        private List<int> WordsIndex(string word)
+        {
+            List<int> indexes = new List<int>();
+            int i = 0;
+            int ind = 0;
+            while (i < richTextBox1.Text.Length)
+            {
+                ind = richTextBox1.Find(word, i, RichTextBoxFinds.WholeWord);//This function finds the index of the appearance of the word.
+                if (ind != -1)
+                {
+                    indexes.Add(ind);
+                    i = i + ind + 1;
+                }
+                else
+                    return indexes;
+            }
+            return indexes;
+        }
+        
 
         void Peek(ulong address, int length = 100)
         {
-            Bytedata = PS4.ReadMemory(PID, address, length);
-            DisassemblyTextBox.Text = GetDisassembly(address, Bytedata);
+            string data = new InstructionData(address).fullData;
+            richTextBox1.Text = data;
             Debugging(address);
         }
 
-        void Peek(string address, int length = 100)
-        {
-            ulong _address = Convert.ToUInt64(dasAddress.Trim().Replace("0x", ""), 16);
-            Bytedata = PS4.ReadMemory(PID, _address, length);
-            DisassemblyTextBox.Text = GetDisassembly(address, Bytedata);
-            Debugging(_address);
-        }
+        void Peek(string address, int length = 100) => Peek(_a(address));
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -500,7 +486,7 @@ namespace PS4_Debugger
                 dasAddress = AddressTextBox.Text;
                 if (__bp.Checked)
                     PS4.ChangeBreakpoint(0, Convert.ToInt16(_BP.Checked), _BP.Checked ? address : 0ul);
-                else if (_wp.Checked)
+                if (_wp.Checked)
                 {
                     var _l = Enum.GetValues(typeof(PS4DBG.WATCHPT_LENGTH)).Cast<PS4DBG.WATCHPT_LENGTH>().ToArray();
                     var _bt = Enum.GetValues(typeof(PS4DBG.WATCHPT_BREAKTYPE)).Cast<PS4DBG.WATCHPT_BREAKTYPE>().ToArray();
@@ -624,6 +610,15 @@ namespace PS4_Debugger
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void AddressTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = e.KeyChar;
+            if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f')))
+            {
+                e.Handled = true;
+            }
         }
 
         private void RGLogo_Click(object sender, EventArgs e) =>
