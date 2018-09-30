@@ -33,8 +33,9 @@ namespace PS4_Debugger
         public static byte[] oldBytes, write, result, Bytedata;
         string dasAddress = "0x00001000", data;
         private ulong address => _a(dasAddress);
-        string[] registers = { "rax", "rbx", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15" };
-        ulong[] _regValue = new ulong[10];
+        //string[] registers = { "rax", "rbx", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15" };
+        string[] registers = { "rip", "rax", "rbx", "rdx", "rcx", "rdi", "rsi", "rbp", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "trapno", "fs", "gs", "err", "es", "ds", "cs", "rflags", "rsp", "ss" };
+        ulong[] _regValue = new ulong[26];
         public struct GameInfo
         {
             public string
@@ -104,52 +105,47 @@ namespace PS4_Debugger
             public string Operation, SBytes, fullData;
             public ulong Address, nAddress, bAddress;
 
-            public InstructionData(ulong _address, int plusOne = 0)
+            public InstructionData(ulong _address)
             {
                 ArchitectureMode architecture = ArchitectureMode.x86_64;
                 Disassembler.Translator.IncludeAddress = false;
                 Disassembler.Translator.IncludeBinary = false;
                 Instruction[] array = new Disassembler(PS4.ReadMemory(PID, _address, 100), architecture, _address, copyBinaryToInstruction: true, Vendor.Any, 0ul).Disassemble().ToArray();
                 StringBuilder stringBuilder = new StringBuilder();
+                Instruction[] bArray = new Disassembler(PS4.ReadMemory(PID, _address - 50, 100), architecture, _address - 50, copyBinaryToInstruction: true, Vendor.Any, 0uL).Disassemble().ToArray();
+                int num = 0;
+                try
+                {
+                    while (true)
+                    {
+                        if (num >= bArray.Length)
+                            bAddress = bArray[num].Offset;
+                        if (bArray[num].PC == _address)
+                            break;
+                        num++;
+                    }
+
+                int space = 0;
                 for (int i = 0; i < array.Length; i++)
-                    stringBuilder.AppendLine($"0x{array[i].Offset.ToString("X")} | {BitConverter.ToString(array[i].Bytes).Replace("-", " ")} | {array[i].ToString()}");
-                Length = array[plusOne].Bytes.Length;
-                Bytes = array[plusOne].Bytes;
+                {
+                    space = 8 - array[i].Bytes.Length;
+                    stringBuilder.AppendLine($"0x{array[i].Offset.ToString("X")} | {BitConverter.ToString(array[i].Bytes).Replace("-", " ")}{new string(' ', space*5)} | {array[i].ToString()}");
+                }
+                }
+                catch { bAddress = 0; }
+                Length = array[0].Bytes.Length;
+                Bytes = array[0].Bytes;
                 string _SBytes = BitConverter.ToString(array[0].Bytes);
                 SBytes = _SBytes.Replace("-", " ");
-                Operation = array[plusOne].ToString();
+                Operation = array[0].ToString();
                 Address = array[0].Offset;
                 nAddress = array[1].Offset;
-                bAddress = array[0].Offset - (ulong)array[1].Bytes.Length + 1;
-                fullData = stringBuilder.ToString();
-            }
-        }
-        struct CheatCodes
-        {
-            public string[] CUSA, GamesData, Cheats;
-            private string[] Games;
-            public CheatCodes(string input)
-            {
-                Games = input.Split('\n');
-                CUSA = new string[input.Length];
-                GamesData = new string[input.Length];
-                Cheats = new string[input.Length];
-                int g = 0;
-                for (int i = 0; i < Games.Length; i++)
+                try
                 {
-                    if (Games[i].StartsWith("#"))
-                    {
-                        CUSA[i] = $"{Games[i].Remove(0, 1).Replace("#", " ")}\n";
-                        g++;
-                    }else
-                    {
-                        if (g != 0)
-                            GamesData[g - 1] += $"{Games[i]}\n";
-                    }
+                    bAddress = bArray[num].Offset;
                 }
-                string[][] vs = { CUSA, GamesData, Cheats };
-                for (int i = 0; i < vs.Length; i++)
-                    vs[i] = vs[i].Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                catch { bAddress = 0; }
+                fullData = stringBuilder.ToString();
             }
         }
 
@@ -173,8 +169,6 @@ namespace PS4_Debugger
         }
 
         GameInfo gameInfo;
-
-        CheatCodes cheats;
 
         enum inst
         {
@@ -214,7 +208,7 @@ namespace PS4_Debugger
             {
                 AddressTextBox.Invoke((EventHandler)delegate
                 {
-                    AddressTextBox.Text = "0x" + regs.r_rip.ToString("X");
+                    //AddressTextBox.Text = "0x" + regs.r_rip.ToString("X");
                 });
                 _BP.Invoke((EventHandler)delegate
                 {
@@ -223,8 +217,8 @@ namespace PS4_Debugger
                         InstructionData data = new InstructionData(regs.r_rip);
                         _BP.Checked = false;
                         _wp.Checked = true;
-                        Peek(data.Address);
-                        AddressTextBox.Text = $"0x{data.Address.ToString("X")}";
+                        Peek(data.bAddress);
+                        AddressTextBox.Text = $"0x{data.bAddress.ToString("X")}";
                     }
                 });
             }
@@ -235,10 +229,9 @@ namespace PS4_Debugger
                     InstructionData data = new InstructionData(regs.r_rip);
                     _BP.Checked = false;
                     _wp.Checked = true;
-                    Peek(data.Address);
-                    AddressTextBox.Text = $"0x{data.Address.ToString("X")}";
+                    Peek(data.bAddress);
+                    AddressTextBox.Text = $"0x{data.bAddress.ToString("X")}";
                 }
-                //                AddressTextBox.Text = "0x" + regs.r_rip.ToString("X");
             }
         }
 
@@ -311,34 +304,14 @@ namespace PS4_Debugger
             for (int j = 0; j < num4; j++)
             {
                 offsetsText.Text = $"{offsetsText.Text}0x{_address.ToString("X")}\n";
-                //offsetsText.Text = offsetsText.Text + "0x" + _address.ToString("X") + Environment.NewLine;
                 _address += 0x10;
             }
         }
-        private List<int> WordsIndex(string word)
-        {
-            List<int> indexes = new List<int>();
-            int i = 0;
-            int ind = 0;
-            while (i < richTextBox1.Text.Length)
-            {
-                ind = richTextBox1.Find(word, i, RichTextBoxFinds.WholeWord);//This function finds the index of the appearance of the word.
-                if (ind != -1)
-                {
-                    indexes.Add(ind);
-                    i = i + ind + 1;
-                }
-                else
-                    return indexes;
-            }
-            return indexes;
-        }
-        
 
         void Peek(ulong address, int length = 100)
         {
             string data = new InstructionData(address).fullData;
-            richTextBox1.Text = data;
+            DisassemblyTextBox.Text = data;
             Debugging(address);
         }
 
@@ -347,26 +320,30 @@ namespace PS4_Debugger
         private void button4_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            switch (btn.Text)
+            try
             {
-                case "Attach":
-                    PS4.AttachDebugger(PID, DebuggerInterruptCallback);
-                    if (PS4.IsConnected)
-                        PS4.ProcessResume();
-                    atch.Text = "Detach";
-                    this.Size = new Size(1415, 505);
-                    PS4.Notify(222, "Cain532 is watching your game");
-                    gameInfo = new GameInfo(PS4);
-                    this.Text += $"  ||  ◄{gameInfo.titleID} v{gameInfo.version}  '{gameInfo.username}'  ►";
-                    break;
-                case "Detach":
-                    PS4.DetachDebugger();
-                    this.Size = new Size(300, 120);
-                    PS4.Notify(222, "Your game is hidden from Cain532");
-                    atch.Text = "Attach";
-                    this.Text = "PS4 Debugger - Cain532";
-                    break;
+                switch (btn.Text)
+                {
+                    case "Attach":
+                        PS4.AttachDebugger(PID, DebuggerInterruptCallback);
+                        if (PS4.IsConnected)
+                            PS4.ProcessResume();
+                        atch.Text = "Detach";
+                        this.Size = new Size(1415, 505);
+                        PS4.Notify(222, "Cain532 is watching your game");
+                        gameInfo = new GameInfo(PS4);
+                        this.Text += $"  ||  ◄{gameInfo.titleID} v{gameInfo.version}  '{gameInfo.username}'  ►";
+                        break;
+                    case "Detach":
+                        PS4.DetachDebugger();
+                        this.Size = new Size(300, 120);
+                        PS4.Notify(222, "Your game is hidden from Cain532");
+                        atch.Text = "Attach";
+                        this.Text = "PS4 Debugger - Cain532";
+                        break;
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         
         private void PlusMinus_Clicky(object sender, EventArgs e)
@@ -385,30 +362,34 @@ namespace PS4_Debugger
         private void timer1_Tick(object sender, EventArgs e)
         {
             dataGridView1.Enabled = true;
-            dataGridView1.RowCount = 10;
-            for (int i = 0; i < 10; i++) dataGridView1.Rows[i].Cells[0].Value = registers[i];
+            dataGridView1.RowCount = registers.Length;
+            for (int i = 0; i < registers.Length; i++) dataGridView1.Rows[i].Cells[0].Value = registers[i];
 
             if (PS4 != null)
             {
                 if (aFresh.Checked)
                     if (AddressTextBox.Text != "")
                         Peek(address);
-                if (PS4.IsDebugging)
+                try
                 {
-                    if (_regs != null)
+                    if (PS4.IsDebugging)
                     {
-                        _regValue = new ulong[] { _regs.r_rax, _regs.r_rbx, _regs.r_r8, _regs.r_r9, _regs.r_r10, _regs.r_r11, _regs.r_r12, _regs.r_r13, _regs.r_r14, _regs.r_r15 };
-                        for (int i = 0; i < 10; i++) dataGridView1.Rows[i].Cells[1].Value = _regValue[i].ToString("X");
-                        if (eView.Checked)
+                        if (_regs != null)
                         {
-                            data = $"0x{_regValue[comboBox1.SelectedIndex].ToString("X")}{Environment.NewLine}";
-                            if (sBox.Lines.Length <= 0) sBox.Text += data;
-                            if (!sBox.Text.Contains(data)) sBox.Text += data;
+                            _regValue = new ulong[] { _regs.r_rip, _regs.r_rax, _regs.r_rbx, _regs.r_rdx, _regs.r_rcx, _regs.r_rdi, _regs.r_rsi, _regs.r_rbp, _regs.r_r8, _regs.r_r9, _regs.r_r10, _regs.r_r11, _regs.r_r12, _regs.r_r13, _regs.r_r14, _regs.r_r15, _regs.r_trapno, _regs.r_fs, _regs.r_gs, _regs.r_err, _regs.r_es, _regs.r_ds, _regs.r_cs, _regs.r_rflags, _regs.r_rsp, _regs.r_ss };
+                            for (int i = 0; i < _regValue.Length; i++) dataGridView1.Rows[i].Cells[1].Value = _regValue[i].ToString("X");
+                            if (eView.Checked)
+                            {
+                                data = $"0x{_regValue[comboBox1.SelectedIndex].ToString("X")}{Environment.NewLine}";
+                                if (sBox.Lines.Length <= 0) sBox.Text += data;
+                                if (!sBox.Text.Contains(data)) sBox.Text += data;
+                            }
                         }
+                        if (checkBox2.Checked)
+                            PS4.ProcessResume();
                     }
-                    if (checkBox2.Checked)
-                        PS4.ProcessResume();
                 }
+                catch { MessageBox.Show(new Exception().Message);}
             }
         }
 
@@ -420,14 +401,15 @@ namespace PS4_Debugger
                 {
                     if (!rBox.Text.Contains(" "))
                     {
-                        int f = rBox.GetFirstCharIndexOfCurrentLine();
-                        int c = rBox.GetLineFromCharIndex(f);
+                        int
+                            f = rBox.GetFirstCharIndexOfCurrentLine(),
+                            c = rBox.GetLineFromCharIndex(f);
                         return rBox.Lines[c].Replace("\r\n", "");
                     }
                     else
                         return null;
                 }
-                catch (Exception ex)
+                catch
                 {
                     return null;
                 }
@@ -609,7 +591,6 @@ namespace PS4_Debugger
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void AddressTextBox_KeyPress(object sender, KeyPressEventArgs e)

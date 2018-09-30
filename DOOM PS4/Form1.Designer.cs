@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cnct = new System.Windows.Forms.Button();
             this.atch = new System.Windows.Forms.Button();
@@ -86,12 +86,10 @@
             this._asmCaveBox = new System.Windows.Forms.TextBox();
             this.cBox = new System.Windows.Forms.TextBox();
             this.stBox = new System.Windows.Forms.TextBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.RGLogo = new System.Windows.Forms.PictureBox();
             this.Cain532 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.DebugLayout.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -106,6 +104,8 @@
             // cnct
             // 
             this.cnct.Enabled = false;
+            this.cnct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cnct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cnct.Location = new System.Drawing.Point(16, 38);
             this.cnct.Name = "cnct";
             this.cnct.Size = new System.Drawing.Size(121, 23);
@@ -117,6 +117,8 @@
             // atch
             // 
             this.atch.Enabled = false;
+            this.atch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.atch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.atch.Location = new System.Drawing.Point(150, 38);
             this.atch.Name = "atch";
             this.atch.Size = new System.Drawing.Size(121, 23);
@@ -128,6 +130,7 @@
             // IPBox
             // 
             this.IPBox.Location = new System.Drawing.Point(12, 12);
+            this.IPBox.MaxLength = 15;
             this.IPBox.Name = "IPBox";
             this.IPBox.Size = new System.Drawing.Size(259, 20);
             this.IPBox.TabIndex = 8;
@@ -144,17 +147,21 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.checkBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.checkBox2.Location = new System.Drawing.Point(304, 44);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 17);
+            this.checkBox2.Size = new System.Drawing.Size(106, 20);
             this.checkBox2.TabIndex = 12;
-            this.checkBox2.Text = "Never Stop";
+            this.checkBox2.Text = "Never Pause";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // button1
             // 
             this.button1.Enabled = false;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(214)))), ((int)(((byte)(98)))));
             this.button1.Location = new System.Drawing.Point(304, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(38, 23);
@@ -167,7 +174,7 @@
             // 
             this.AddressTextBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddressTextBox.Location = new System.Drawing.Point(181, 109);
-            this.AddressTextBox.MaxLength = 16;
+            this.AddressTextBox.MaxLength = 18;
             this.AddressTextBox.Name = "AddressTextBox";
             this.AddressTextBox.Size = new System.Drawing.Size(108, 23);
             this.AddressTextBox.TabIndex = 15;
@@ -184,8 +191,8 @@
             this._val});
             this.dataGridView1.Location = new System.Drawing.Point(16, 162);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Size = new System.Drawing.Size(273, 293);
             this.dataGridView1.TabIndex = 16;
             // 
@@ -209,7 +216,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(80, 6);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 21);
+            this.comboBox1.Size = new System.Drawing.Size(122, 21);
             this.comboBox1.TabIndex = 17;
             // 
             // _BP
@@ -249,9 +256,11 @@
             // _wp
             // 
             this._wp.AutoSize = true;
-            this._wp.Location = new System.Drawing.Point(16, 112);
+            this._wp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this._wp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this._wp.Location = new System.Drawing.Point(11, 112);
             this._wp.Name = "_wp";
-            this._wp.Size = new System.Drawing.Size(43, 17);
+            this._wp.Size = new System.Drawing.Size(48, 20);
             this._wp.TabIndex = 22;
             this._wp.Text = "WP";
             this._wp.UseVisualStyleBackColor = true;
@@ -260,10 +269,11 @@
             // 
             this.@__bp.AutoSize = true;
             this.@__bp.Checked = true;
-            this.@__bp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.@__bp.Location = new System.Drawing.Point(109, 110);
+            this.@__bp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.@__bp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.@__bp.Location = new System.Drawing.Point(104, 110);
             this.@__bp.Name = "__bp";
-            this.@__bp.Size = new System.Drawing.Size(45, 18);
+            this.@__bp.Size = new System.Drawing.Size(44, 20);
             this.@__bp.TabIndex = 23;
             this.@__bp.TabStop = true;
             this.@__bp.Text = "BP";
@@ -301,9 +311,11 @@
             this.dView.AutoSize = true;
             this.dView.Checked = true;
             this.dView.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.dView.Location = new System.Drawing.Point(586, 110);
+            this.dView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.dView.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.dView.Location = new System.Drawing.Point(587, 110);
             this.dView.Name = "dView";
-            this.dView.Size = new System.Drawing.Size(89, 17);
+            this.dView.Size = new System.Drawing.Size(113, 20);
             this.dView.TabIndex = 26;
             this.dView.Text = "Dissassembly";
             this.dView.UseVisualStyleBackColor = true;
@@ -312,9 +324,11 @@
             // mView
             // 
             this.mView.AutoSize = true;
-            this.mView.Location = new System.Drawing.Point(680, 110);
+            this.mView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.mView.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.mView.Location = new System.Drawing.Point(698, 110);
             this.mView.Name = "mView";
-            this.mView.Size = new System.Drawing.Size(63, 17);
+            this.mView.Size = new System.Drawing.Size(76, 20);
             this.mView.TabIndex = 27;
             this.mView.Text = "Memory";
             this.mView.UseVisualStyleBackColor = true;
@@ -322,17 +336,22 @@
             // 
             // _peek
             // 
+            this._peek.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this._peek.FlatAppearance.BorderSize = 0;
+            this._peek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._peek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this._peek.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this._peek.Location = new System.Drawing.Point(6, 4);
             this._peek.Name = "_peek";
             this._peek.Size = new System.Drawing.Size(265, 71);
             this._peek.TabIndex = 28;
             this._peek.Text = "Refresh Memory";
-            this._peek.UseVisualStyleBackColor = true;
+            this._peek.UseVisualStyleBackColor = false;
             this._peek.Click += new System.EventHandler(this._peek_Click);
             // 
             // DebugLayout
             // 
-            this.DebugLayout.BackColor = System.Drawing.Color.Transparent;
+            this.DebugLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.DebugLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.DebugLayout.ColumnCount = 3;
             this.DebugLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 152F));
@@ -358,7 +377,7 @@
             // 
             // hexCode
             // 
-            this.hexCode.BackColor = System.Drawing.SystemColors.Control;
+            this.hexCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.hexCode.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.hexCode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hexCode.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -375,7 +394,7 @@
             // 
             // richTextBox4
             // 
-            this.richTextBox4.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox4.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox4.ForeColor = System.Drawing.Color.ForestGreen;
@@ -387,7 +406,7 @@
             // 
             // richTextBox3
             // 
-            this.richTextBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox3.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox3.ForeColor = System.Drawing.Color.ForestGreen;
@@ -399,7 +418,7 @@
             // 
             // offsetsText
             // 
-            this.offsetsText.BackColor = System.Drawing.SystemColors.Control;
+            this.offsetsText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.offsetsText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.offsetsText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.offsetsText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -414,7 +433,7 @@
             // 
             // asciiText
             // 
-            this.asciiText.BackColor = System.Drawing.SystemColors.Control;
+            this.asciiText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.asciiText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.asciiText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.asciiText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -426,7 +445,7 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox2.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox2.ForeColor = System.Drawing.Color.ForestGreen;
@@ -441,9 +460,11 @@
             this.aFresh.AutoSize = true;
             this.aFresh.Checked = true;
             this.aFresh.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.aFresh.Location = new System.Drawing.Point(749, 110);
+            this.aFresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.aFresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.aFresh.Location = new System.Drawing.Point(777, 110);
             this.aFresh.Name = "aFresh";
-            this.aFresh.Size = new System.Drawing.Size(88, 17);
+            this.aFresh.Size = new System.Drawing.Size(104, 20);
             this.aFresh.TabIndex = 30;
             this.aFresh.Text = "Auto Refresh";
             this.aFresh.UseVisualStyleBackColor = true;
@@ -451,6 +472,8 @@
             // button2
             // 
             this.button2.Enabled = false;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(234)))), ((int)(((byte)(39)))));
             this.button2.Location = new System.Drawing.Point(348, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(38, 23);
@@ -461,6 +484,8 @@
             // 
             // button3
             // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
             this.button3.Location = new System.Drawing.Point(392, 12);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(38, 23);
@@ -472,16 +497,19 @@
             // jumpoff
             // 
             this.jumpoff.AutoSize = true;
-            this.jumpoff.Location = new System.Drawing.Point(7, 216);
+            this.jumpoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.jumpoff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.jumpoff.Location = new System.Drawing.Point(7, 228);
             this.jumpoff.Name = "jumpoff";
-            this.jumpoff.Size = new System.Drawing.Size(38, 13);
+            this.jumpoff.Size = new System.Drawing.Size(51, 17);
             this.jumpoff.TabIndex = 43;
             this.jumpoff.Text = "Jump -";
             // 
             // jumpbox
             // 
+            this.jumpbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.jumpbox.Enabled = false;
-            this.jumpbox.Location = new System.Drawing.Point(10, 232);
+            this.jumpbox.Location = new System.Drawing.Point(10, 248);
             this.jumpbox.Name = "jumpbox";
             this.jumpbox.Size = new System.Drawing.Size(261, 20);
             this.jumpbox.TabIndex = 42;
@@ -491,8 +519,9 @@
             // 
             // offsetTxt
             // 
+            this.offsetTxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.offsetTxt.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.offsetTxt.Location = new System.Drawing.Point(10, 121);
+            this.offsetTxt.Location = new System.Drawing.Point(10, 110);
             this.offsetTxt.MaxLength = 18;
             this.offsetTxt.Name = "offsetTxt";
             this.offsetTxt.Size = new System.Drawing.Size(261, 22);
@@ -504,6 +533,7 @@
             // 
             // writebox
             // 
+            this.writebox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.writebox.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.writebox.Location = new System.Drawing.Point(10, 162);
             this.writebox.Name = "writebox";
@@ -514,9 +544,12 @@
             // 
             // jumpminus
             // 
-            this.jumpminus.Location = new System.Drawing.Point(10, 258);
+            this.jumpminus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.jumpminus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.jumpminus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.jumpminus.Location = new System.Drawing.Point(10, 274);
             this.jumpminus.Name = "jumpminus";
-            this.jumpminus.Size = new System.Drawing.Size(121, 23);
+            this.jumpminus.Size = new System.Drawing.Size(121, 31);
             this.jumpminus.TabIndex = 41;
             this.jumpminus.Text = "-";
             this.jumpminus.UseVisualStyleBackColor = true;
@@ -524,9 +557,12 @@
             // 
             // jumpplus
             // 
-            this.jumpplus.Location = new System.Drawing.Point(150, 258);
+            this.jumpplus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.jumpplus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.jumpplus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.jumpplus.Location = new System.Drawing.Point(150, 274);
             this.jumpplus.Name = "jumpplus";
-            this.jumpplus.Size = new System.Drawing.Size(121, 23);
+            this.jumpplus.Size = new System.Drawing.Size(121, 31);
             this.jumpplus.TabIndex = 40;
             this.jumpplus.Text = "+";
             this.jumpplus.UseVisualStyleBackColor = true;
@@ -534,9 +570,12 @@
             // 
             // writebyte
             // 
+            this.writebyte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.writebyte.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.writebyte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.writebyte.Location = new System.Drawing.Point(30, 190);
             this.writebyte.Name = "writebyte";
-            this.writebyte.Size = new System.Drawing.Size(224, 23);
+            this.writebyte.Size = new System.Drawing.Size(224, 35);
             this.writebyte.TabIndex = 34;
             this.writebyte.Text = "Write";
             this.writebyte.UseVisualStyleBackColor = true;
@@ -545,18 +584,22 @@
             // binput
             // 
             this.binput.AutoSize = true;
-            this.binput.Location = new System.Drawing.Point(7, 146);
+            this.binput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.binput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.binput.Location = new System.Drawing.Point(7, 142);
             this.binput.Name = "binput";
-            this.binput.Size = new System.Drawing.Size(55, 13);
+            this.binput.Size = new System.Drawing.Size(71, 17);
             this.binput.TabIndex = 38;
             this.binput.Text = "Byte Input";
             // 
             // seloff
             // 
             this.seloff.AutoSize = true;
-            this.seloff.Location = new System.Drawing.Point(7, 105);
+            this.seloff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.seloff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.seloff.Location = new System.Drawing.Point(7, 90);
             this.seloff.Name = "seloff";
-            this.seloff.Size = new System.Drawing.Size(80, 13);
+            this.seloff.Size = new System.Drawing.Size(105, 17);
             this.seloff.TabIndex = 37;
             this.seloff.Text = "Selected Offset";
             // 
@@ -566,7 +609,6 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(295, 109);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -576,6 +618,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.tabPage1.Controls.Add(this.jumpoff);
             this.tabPage1.Controls.Add(this.seloff);
             this.tabPage1.Controls.Add(this.jumpbox);
@@ -592,10 +635,10 @@
             this.tabPage1.Size = new System.Drawing.Size(277, 322);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Memory";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.tabPage2.Controls.Add(this.sBox);
             this.tabPage2.Controls.Add(this.eView);
             this.tabPage2.Controls.Add(this.comboBox1);
@@ -605,10 +648,10 @@
             this.tabPage2.Size = new System.Drawing.Size(277, 322);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Seperator";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // sBox
             // 
+            this.sBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.sBox.Location = new System.Drawing.Point(6, 39);
             this.sBox.Multiline = true;
             this.sBox.Name = "sBox";
@@ -620,6 +663,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.tabPage3.Controls.Add(this._asm);
             this.tabPage3.Controls.Add(this._asmBox);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -628,20 +672,25 @@
             this.tabPage3.Size = new System.Drawing.Size(277, 322);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Assembly";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // _asm
             // 
+            this._asm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this._asm.FlatAppearance.BorderSize = 0;
+            this._asm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._asm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this._asm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this._asm.Location = new System.Drawing.Point(6, 281);
             this._asm.Name = "_asm";
             this._asm.Size = new System.Drawing.Size(265, 35);
             this._asm.TabIndex = 23;
             this._asm.Text = "Assemble";
-            this._asm.UseVisualStyleBackColor = true;
+            this._asm.UseVisualStyleBackColor = false;
             this._asm.Click += new System.EventHandler(this._asm_Click);
             // 
             // _asmBox
             // 
+            this._asmBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this._asmBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._asmBox.Location = new System.Drawing.Point(6, 9);
             this._asmBox.Multiline = true;
@@ -651,6 +700,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.tabPage4.Controls.Add(this._li);
             this.tabPage4.Controls.Add(this.button4);
             this.tabPage4.Controls.Add(this.label3);
@@ -664,13 +714,13 @@
             this.tabPage4.Size = new System.Drawing.Size(277, 322);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Code Cave";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // _li
             // 
             this._li.AutoSize = true;
             this._li.Checked = true;
             this._li.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._li.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this._li.Location = new System.Drawing.Point(6, 261);
             this._li.Name = "_li";
             this._li.Size = new System.Drawing.Size(135, 17);
@@ -680,17 +730,24 @@
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button4.Location = new System.Drawing.Point(6, 281);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(265, 35);
             this.button4.TabIndex = 24;
             this.button4.Text = "Assemble";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.label3.Location = new System.Drawing.Point(143, 4);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
@@ -700,6 +757,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.label2.Location = new System.Drawing.Point(3, 4);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
@@ -708,6 +766,7 @@
             // 
             // _asmCaveBox
             // 
+            this._asmCaveBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this._asmCaveBox.Location = new System.Drawing.Point(6, 46);
             this._asmCaveBox.Multiline = true;
             this._asmCaveBox.Name = "_asmCaveBox";
@@ -716,38 +775,29 @@
             // 
             // cBox
             // 
+            this.cBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.cBox.Location = new System.Drawing.Point(146, 20);
             this.cBox.Name = "cBox";
             this.cBox.Size = new System.Drawing.Size(125, 20);
             this.cBox.TabIndex = 1;
             this.cBox.Text = "0x00010000";
             this.cBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.cBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // stBox
             // 
+            this.stBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.stBox.Location = new System.Drawing.Point(6, 20);
             this.stBox.Name = "stBox";
             this.stBox.Size = new System.Drawing.Size(125, 20);
             this.stBox.TabIndex = 0;
             this.stBox.Text = "0x00010000";
             this.stBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.stBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(277, 322);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.label1.Location = new System.Drawing.Point(648, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(553, 70);
@@ -756,8 +806,9 @@
             // 
             // RGLogo
             // 
-            this.RGLogo.BackgroundImage = global::PS4_Debugger.Properties.Resources.logo_dark;
+            this.RGLogo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RGLogo.BackgroundImage")));
             this.RGLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RGLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RGLogo.Location = new System.Drawing.Point(1309, 31);
             this.RGLogo.Name = "RGLogo";
             this.RGLogo.Size = new System.Drawing.Size(69, 69);
@@ -767,8 +818,9 @@
             // 
             // Cain532
             // 
-            this.Cain532.BackgroundImage = global::PS4_Debugger.Properties.Resources.Cain532;
+            this.Cain532.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Cain532.BackgroundImage")));
             this.Cain532.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Cain532.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Cain532.Location = new System.Drawing.Point(1211, 31);
             this.Cain532.Name = "Cain532";
             this.Cain532.Size = new System.Drawing.Size(69, 69);
@@ -776,23 +828,13 @@
             this.Cain532.TabStop = false;
             this.Cain532.Click += new System.EventHandler(this.Cain532_Click);
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.richTextBox1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(592, 137);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(760, 314);
-            this.richTextBox1.TabIndex = 48;
-            this.richTextBox1.Text = "";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1399, 466);
+            this.Controls.Add(this.DisassemblyTextBox);
             this.Controls.Add(this.RGLogo);
             this.Controls.Add(this.Cain532);
             this.Controls.Add(this.label1);
@@ -815,8 +857,6 @@
             this.Controls.Add(this.atch);
             this.Controls.Add(this.cnct);
             this.Controls.Add(this.DebugLayout);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.DisassemblyTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -905,8 +945,6 @@
         private System.Windows.Forms.TextBox stBox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox _li;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

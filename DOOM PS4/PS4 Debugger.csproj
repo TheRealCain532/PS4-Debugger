@@ -57,7 +57,8 @@
     <Reference Include="Be.Windows.Forms.HexBox">
       <HintPath>..\..\..\..\Downloads\dbgw\dbgw\Be.Windows.Forms.HexBox.dll</HintPath>
     </Reference>
-    <Reference Include="libdebug">
+    <Reference Include="libdebug, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Downloads\dbgw\dbgw\libdebug.dll</HintPath>
     </Reference>
     <Reference Include="RTFLib">
