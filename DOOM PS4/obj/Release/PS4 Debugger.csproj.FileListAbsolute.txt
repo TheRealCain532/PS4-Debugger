@@ -28,3 +28,4 @@ C:\Users\Brandon\source\repos\PS4Debugger\DOOM PS4\obj\Release\PS4 Debugger.cspr
 C:\Users\Brandon\source\repos\PS4Debugger\DOOM PS4\obj\Release\PS4 Debugger.csproj.CopyComplete
 C:\Users\Brandon\source\repos\PS4Debugger\DOOM PS4\obj\Release\PS4 Debugger.exe
 C:\Users\Brandon\source\repos\PS4Debugger\DOOM PS4\obj\Release\PS4 Debugger.pdb
+C:\Users\Brandon\source\repos\PS4Debugger\DOOM PS4\bin\Release\libdebug.pdb
