@@ -64,13 +64,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.jumpoff = new System.Windows.Forms.Label();
             this.jumpbox = new System.Windows.Forms.TextBox();
-            this.offsetTxt = new System.Windows.Forms.TextBox();
             this.writebox = new System.Windows.Forms.TextBox();
             this.jumpminus = new System.Windows.Forms.Button();
             this.jumpplus = new System.Windows.Forms.Button();
             this.writebyte = new System.Windows.Forms.Button();
             this.binput = new System.Windows.Forms.Label();
-            this.seloff = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -338,14 +336,15 @@
             // 
             this._peek.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this._peek.FlatAppearance.BorderSize = 0;
-            this._peek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._peek.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this._peek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this._peek.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this._peek.Location = new System.Drawing.Point(6, 4);
+            this._peek.Location = new System.Drawing.Point(887, 105);
             this._peek.Name = "_peek";
-            this._peek.Size = new System.Drawing.Size(265, 71);
+            this._peek.Size = new System.Drawing.Size(21, 25);
             this._peek.TabIndex = 28;
-            this._peek.Text = "Refresh Memory";
+            this._peek.Text = "R";
+            this.toolTip1.SetToolTip(this._peek, "Manually Refresh memory");
             this._peek.UseVisualStyleBackColor = false;
             this._peek.Click += new System.EventHandler(this._peek_Click);
             // 
@@ -517,29 +516,17 @@
             this.jumpbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.jumpbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
-            // offsetTxt
-            // 
-            this.offsetTxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.offsetTxt.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.offsetTxt.Location = new System.Drawing.Point(10, 110);
-            this.offsetTxt.MaxLength = 18;
-            this.offsetTxt.Name = "offsetTxt";
-            this.offsetTxt.Size = new System.Drawing.Size(261, 22);
-            this.offsetTxt.TabIndex = 35;
-            this.offsetTxt.Text = "0x00010000";
-            this.offsetTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.offsetTxt.TextChanged += new System.EventHandler(this.dasAddress_TextChanged);
-            this.offsetTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
-            // 
             // writebox
             // 
             this.writebox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.writebox.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.writebox.Location = new System.Drawing.Point(10, 162);
+            this.writebox.Location = new System.Drawing.Point(10, 29);
+            this.writebox.Multiline = true;
             this.writebox.Name = "writebox";
-            this.writebox.Size = new System.Drawing.Size(261, 22);
+            this.writebox.Size = new System.Drawing.Size(261, 153);
             this.writebox.TabIndex = 36;
             this.writebox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.writebox.WordWrap = false;
             this.writebox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // jumpminus
@@ -586,22 +573,11 @@
             this.binput.AutoSize = true;
             this.binput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.binput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.binput.Location = new System.Drawing.Point(7, 142);
+            this.binput.Location = new System.Drawing.Point(99, 9);
             this.binput.Name = "binput";
             this.binput.Size = new System.Drawing.Size(71, 17);
             this.binput.TabIndex = 38;
             this.binput.Text = "Byte Input";
-            // 
-            // seloff
-            // 
-            this.seloff.AutoSize = true;
-            this.seloff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.seloff.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.seloff.Location = new System.Drawing.Point(7, 90);
-            this.seloff.Name = "seloff";
-            this.seloff.Size = new System.Drawing.Size(105, 17);
-            this.seloff.TabIndex = 37;
-            this.seloff.Text = "Selected Offset";
             // 
             // tabControl1
             // 
@@ -620,11 +596,8 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.tabPage1.Controls.Add(this.jumpoff);
-            this.tabPage1.Controls.Add(this.seloff);
             this.tabPage1.Controls.Add(this.jumpbox);
             this.tabPage1.Controls.Add(this.binput);
-            this.tabPage1.Controls.Add(this._peek);
-            this.tabPage1.Controls.Add(this.offsetTxt);
             this.tabPage1.Controls.Add(this.writebyte);
             this.tabPage1.Controls.Add(this.writebox);
             this.tabPage1.Controls.Add(this.jumpplus);
@@ -697,6 +670,7 @@
             this._asmBox.Name = "_asmBox";
             this._asmBox.Size = new System.Drawing.Size(265, 266);
             this._asmBox.TabIndex = 22;
+            this._asmBox.WordWrap = false;
             // 
             // tabPage4
             // 
@@ -837,6 +811,7 @@
             this.Controls.Add(this.DisassemblyTextBox);
             this.Controls.Add(this.RGLogo);
             this.Controls.Add(this.Cain532);
+            this.Controls.Add(this._peek);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button3);
@@ -917,13 +892,11 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label jumpoff;
         private System.Windows.Forms.TextBox jumpbox;
-        private System.Windows.Forms.TextBox offsetTxt;
         private System.Windows.Forms.TextBox writebox;
         private System.Windows.Forms.Button jumpminus;
         private System.Windows.Forms.Button jumpplus;
         private System.Windows.Forms.Button writebyte;
         private System.Windows.Forms.Label binput;
-        private System.Windows.Forms.Label seloff;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

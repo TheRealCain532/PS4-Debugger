@@ -31,9 +31,7 @@ namespace PS4_Debugger
         fpreg64 _fpregs;
         dbreg64 _dbregs;
         public static byte[] oldBytes, write, result, Bytedata;
-        string dasAddress = "0x00001000", data;
-        private ulong address => _a(dasAddress);
-        //string[] registers = { "rax", "rbx", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15" };
+        string dasAddress = "0x00001000", data;     private ulong address => _a(dasAddress);
         string[] registers = { "rip", "rax", "rbx", "rdx", "rcx", "rdi", "rsi", "rbp", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "trapno", "fs", "gs", "err", "es", "ds", "cs", "rflags", "rsp", "ss" };
         ulong[] _regValue = new ulong[26];
         public struct GameInfo
@@ -91,7 +89,7 @@ namespace PS4_Debugger
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 titleID = result[0];
                 version = result[1];
@@ -148,34 +146,6 @@ namespace PS4_Debugger
                 fullData = stringBuilder.ToString();
             }
         }
-        struct CheatCodes
-        {
-            public string[] CUSA, GamesData, Cheats;
-            private string[] Games;
-            public CheatCodes(string input)
-            {
-                Games = input.Split('\n');
-                CUSA = new string[input.Length];
-                GamesData = new string[input.Length];
-                Cheats = new string[input.Length];
-                int g = 0;
-                for (int i = 0; i < Games.Length; i++)
-                {
-                    if (Games[i].StartsWith("#"))
-                    {
-                        CUSA[i] = $"{Games[i].Remove(0, 1).Replace("#", " ")}\n";
-                        g++;
-                    }else
-                    {
-                        if (g != 0)
-                            GamesData[g - 1] += $"{Games[i]}\n";
-                    }
-                }
-                string[][] vs = { CUSA, GamesData, Cheats };
-                for (int i = 0; i < vs.Length; i++)
-                    vs[i] = vs[i].Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            }
-        }
 
         static int PID
         {
@@ -198,7 +168,6 @@ namespace PS4_Debugger
 
         GameInfo gameInfo;
 
-        CheatCodes cheats;
 
         enum inst
         {
@@ -388,7 +357,6 @@ namespace PS4_Debugger
                 dasAddress = (btn.Text == "+") ? data.nAddress.ToString("X") : data.bAddress.ToString("X");
             Peek(dasAddress);
             AddressTextBox.Text = dasAddress;
-            offsetTxt.Text = dasAddress;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -421,7 +389,9 @@ namespace PS4_Debugger
                             PS4.ProcessResume();
                     }
                 }
-                catch { MessageBox.Show(new Exception().Message);}
+                catch {
+                    //MessageBox.Show(new Exception().Message);
+                }
             }
         }
 
@@ -455,7 +425,7 @@ namespace PS4_Debugger
             string str = offsetsText.Lines.ElementAt<string>(index);
             string str2 = num2.ToString("X");
             str = str.Remove(str.Length - 1, 1) + str2;
-            offsetTxt.Text = str;
+
         }
 
         private void hexCode_DoubleClick(object sender, EventArgs e)
@@ -488,7 +458,6 @@ namespace PS4_Debugger
             dasAddress = T.Text;
             if (!_BP.Checked)
                 AddressTextBox.Text = dasAddress;
-            offsetTxt.Text = dasAddress;
         }
 
         private void _BP_CheckedChanged(object sender, EventArgs e)
@@ -530,7 +499,6 @@ namespace PS4_Debugger
             rBox = sender as TextBox;
             dasAddress = Line;
             AddressTextBox.Text = dasAddress;
-            offsetTxt.Text = dasAddress;
             _BP.Checked = false;
             _wp.Checked = true;
             mView.Checked = true;
@@ -623,6 +591,7 @@ namespace PS4_Debugger
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tabControl1.SelectedIndex == 4) PopCodes();
         }
 
         private void AddressTextBox_KeyPress(object sender, KeyPressEventArgs e)
