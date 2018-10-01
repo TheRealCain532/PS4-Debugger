@@ -337,66 +337,7 @@ namespace PS4_Debugger
                 _address += 0x10;
             }
         }
-        int g;
-        string[] cheatlist;
-        void PopCodes()
-        {
-            cheats = new CheatCodes(new WebClient().DownloadString("https://pastebin.com/raw/XNWfKUnQ"));
-            try
-            {
-                panel1.Invoke((Action)(() => panel1.Controls.Clear()));
-                for (int i = 0; i < cheats.GamesData.Length; i++)
-                {
 
-                    if (cheats.CUSA[i].Contains(gameInfo.titleID))
-                    {
-                        cheatlist = Regex.Replace(cheats.GamesData[i], @"^\s+$[\r\n]*", "", RegexOptions.Multiline).Split('\n');
-                        break;
-                    }
-                }
-                CheckBox box;
-                g = 0;
-                if (cheatlist != null)
-                {
-                    for (int i = 0; i < cheatlist.Length; i++)
-                    {
-                        if (cheatlist[i].StartsWith("\""))
-                        {
-                            box = new CheckBox();
-                            box.Name = g.ToString();
-                            box.Text = cheatlist[i].Replace("\"", "");
-                            box.AutoSize = true;
-                            box.Location = new Point(10, g * 20); //vertical
-                            box.CheckedChanged += new EventHandler(this.chkbox_CheckedChanged);
-                            panel1.Invoke((Action)(() => panel1.Controls.Add(box)));
-                            g++;
-                        }
-                        else if (!cheatlist[i].StartsWith("."))
-                            cheats.Cheats[g - 1] += cheatlist[i];
-                        else if (cheatlist[i].StartsWith("."))
-                        {
-                            CheckBox chkbox = this.panel1.Controls.Find((g - 1).ToString(), true).FirstOrDefault() as CheckBox;
-                            panel1.Invoke((Action)(() => toolTip1.SetToolTip(chkbox, cheatlist[i].Replace(".", ""))));
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-            }
-        }
-        CheckBox chkbox;
-        private void chkbox_CheckedChanged(object sender, EventArgs e)
-        {
-            chkbox = (CheckBox)sender;
-            uint addresses = new uint();
-            string input = cheats.Cheats[int.Parse(chkbox.Name)].Replace("\r", "");
-            byte[] data = new byte[input.Split(':')[chkbox.Checked ? 1 : 2].Length];
-            addresses = Convert.ToUInt32(input.Split(':')[0], 16);
-            data = STB(input.Split(':')[chkbox.Checked ? 1 : 2]);
-            PS4.WriteMemory(PID, addresses, data);
-        }
         void Peek(ulong address, int length = 100)
         {
             string data = new InstructionData(address).fullData;
@@ -682,7 +623,6 @@ namespace PS4_Debugger
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 4) PopCodes();
         }
 
         private void AddressTextBox_KeyPress(object sender, KeyPressEventArgs e)
