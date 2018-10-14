@@ -31,7 +31,9 @@ namespace PS4_Debugger
         fpreg64 _fpregs;
         dbreg64 _dbregs;
         public static byte[] oldBytes, write, result, Bytedata;
-        string dasAddress = "0x00001000", data;     private ulong address => _a(dasAddress);
+
+        string dasAddress = "0x00001000", data;
+        private ulong address => _a(dasAddress);
         string[] registers = { "rip", "rax", "rbx", "rdx", "rcx", "rdi", "rsi", "rbp", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "trapno", "fs", "gs", "err", "es", "ds", "cs", "rflags", "rsp", "ss" };
         ulong[] _regValue = new ulong[26];
         public struct GameInfo
@@ -123,12 +125,12 @@ namespace PS4_Debugger
                         num++;
                     }
 
-                int space = 0;
-                for (int i = 0; i < array.Length; i++)
-                {
-                    space = 8 - array[i].Bytes.Length;
-                    stringBuilder.AppendLine($"0x{array[i].Offset.ToString("X")} | {BitConverter.ToString(array[i].Bytes).Replace("-", " ")}{new string(' ', space*5)} | {array[i].ToString()}");
-                }
+                    int space = 0;
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        space = 10 - array[i].Bytes.Length;
+                        stringBuilder.AppendLine($"0x{array[i].Offset.ToString("X")} | {BitConverter.ToString(array[i].Bytes).Replace("-", " ")}{new string(' ', space * 5)} | {array[i].ToString()}");
+                    }
                 }
                 catch { bAddress = 0; }
                 Length = array[0].Bytes.Length;
@@ -146,7 +148,104 @@ namespace PS4_Debugger
                 fullData = stringBuilder.ToString();
             }
         }
+        struct CheatCodes
+        {
+            public string[] CUSA, CheatNames, CheatTips, CheatBytes;
+            private string[] Games, GamesData, Cheats;
+            public CheatCodes(string input)
+            {
+                GameInfo gI = new GameInfo(PS4);
+                int gam = 0;
+                List<string>
+                    _CUSA = new List<string>(),
+                    gData = new List<string>(),
+                    cData = new List<string>(),
+                    tData = new List<string>(),
+                    nData = new List<string>(),
+                    bData = new List<string>();
+                Games = input.Split('\n');
+                GamesData = new string[input.Length];
+                Cheats = new string[input.Length];
+                int g = 0;
+                for (int i = 0; i < Games.Length; i++)
+                {
+                    if (Games[i].StartsWith("#"))
+                    {
+                        _CUSA.Add($"{Games[i].Remove(0, 1)}");
+                        g++;
+                    }
+                    else
+                        if (g != 0)
+                            GamesData[g - 1] += $"{Games[i]}\n";
+                }
+                for (int c = 0; c < GamesData.Length; c++) if (_CUSA[c].Contains(gI.titleID)) { gam = c; break; }
+                if (GamesData[gam] != null) Cheats = Regex.Replace(GamesData[gam], @"^\s+$[\r\n]*", "", RegexOptions.Multiline).Split('\n');
+                foreach (var item in GamesData)
+                    if (item != null && item != "")
+                        gData.Add(item);
+                    foreach (var item in Cheats)
+                        if (item != null && item != "")
+                            cData.Add(item);
+                    foreach (var item in cData)
+                    {
+                        if (item.StartsWith("\""))
+                            nData.Add(item.Remove(0, 1).Trim('\r'));
+                        if (item.StartsWith("."))
+                            tData.Add(item.Remove(0, 1).Trim('\r'));
+                        if (!item.StartsWith(".") && !item.StartsWith("\""))
+                            bData.Add(item.Trim('\r'));
+                    }
 
+                CheatNames = nData.ToArray();
+                CheatTips = tData.ToArray();
+                CheatBytes = bData.ToArray();
+                CUSA = _CUSA.ToArray();
+            }
+        }
+        #region Cheat Tab
+        CheatCodes cheats;
+        int g;
+        void PopCodes()
+        {
+            try
+            {
+                cheats = new CheatCodes(new WebClient().DownloadString("https://pastebin.com/raw/XNWfKUnQ"));
+                panel1.Invoke((Action)(() => panel1.Controls.Clear()));
+                CheckBox box;
+                g = 0;
+                if (!cheats.Equals(null))
+                {
+                    for (int i = 0; i < cheats.CheatNames.Length; i++)
+                    {
+                        box = new CheckBox();
+                        box.Name = i.ToString();
+                        box.Text = cheats.CheatNames[i];
+                        box.Location = new Point(10, i * 20);
+                        box.CheckedChanged += new EventHandler(chkbox_CheckedChanged);
+                        panel1.Invoke((Action)(() => panel1.Controls.Add(box)));
+                        CheckBox chkbox = this.panel1.Controls.Find((i).ToString(), true).FirstOrDefault() as CheckBox;
+                        panel1.Invoke((Action)(() => toolTip1.SetToolTip(chkbox, cheats.CheatTips[i])));
+                    }
+                }
+            }
+            catch { }
+        }
+        CheckBox chkbox;
+        private void chkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            chkbox = (CheckBox)sender;
+            uint addresses = new uint();
+            string input = cheats.CheatBytes[int.Parse(chkbox.Name)].Replace("\r", "");
+            byte[] data = new byte[input.Split(':')[chkbox.Checked ? 1 : 2].Length];
+            addresses = Convert.ToUInt32(input.Split(':')[0], 16);
+            data = STB(input.Split(':')[chkbox.Checked ? 1 : 2]);
+            PS4.WriteMemory(PID, addresses, data);
+        }
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 4) PopCodes();
+        }
+        #endregion
         static int PID
         {
             get
@@ -168,13 +267,12 @@ namespace PS4_Debugger
 
         GameInfo gameInfo;
 
-
         enum inst
         {
             add,
             sub
         }
-        ulong _a(string input) { try { return Convert.ToUInt64(input.Trim().Replace("0x", ""), 16); } catch { return 0; } }
+        ulong _a(string input) { try { return Convert.ToUInt64(input.Trim(), 16); } catch { return 0; } }
         public static byte[] STB(string hex)
         {
             if ((hex.Length % 2) != 0)
@@ -310,6 +408,8 @@ namespace PS4_Debugger
         void Peek(ulong address, int length = 100)
         {
             string data = new InstructionData(address).fullData;
+            //Bytedata = PS4.ReadMemory(PID, address, length);
+            //DisassemblyTextBox.Text = GetDisassembly(address, Bytedata);
             DisassemblyTextBox.Text = data;
             Debugging(address);
         }
@@ -589,10 +689,6 @@ namespace PS4_Debugger
             CodeCave(_asmCaveBox.Lines);
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 4) PopCodes();
-        }
 
         private void AddressTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -601,6 +697,31 @@ namespace PS4_Debugger
             {
                 e.Handled = true;
             }
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    rClick.Show(this, new Point(e.X, e.Y));
+                    break;
+
+            }
+        }
+
+        private void manualResizeWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MaximumSize = new Size(3000, 2000);
+            this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+        }
+
+        private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.MaximumSize = new Size(1415, 505);
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            if (PS4.IsConnected)
+                this.Size = new Size(1415, 505);
         }
 
         private void RGLogo_Click(object sender, EventArgs e) =>

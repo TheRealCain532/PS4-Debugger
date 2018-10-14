@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cnct = new System.Windows.Forms.Button();
             this.atch = new System.Windows.Forms.Button();
@@ -84,10 +84,15 @@
             this._asmCaveBox = new System.Windows.Forms.TextBox();
             this.cBox = new System.Windows.Forms.TextBox();
             this.stBox = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.RGLogo = new System.Windows.Forms.PictureBox();
             this.Cain532 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.rClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.manualResizeWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.DebugLayout.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -95,8 +100,10 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RGLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cain532)).BeginInit();
+            this.rClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // cnct
@@ -189,8 +196,8 @@
             this._val});
             this.dataGridView1.Location = new System.Drawing.Point(16, 162);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.Size = new System.Drawing.Size(273, 293);
             this.dataGridView1.TabIndex = 16;
             // 
@@ -514,7 +521,6 @@
             this.jumpbox.TabIndex = 42;
             this.jumpbox.Text = "0x50";
             this.jumpbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.jumpbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // writebox
             // 
@@ -527,7 +533,6 @@
             this.writebox.TabIndex = 36;
             this.writebox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.writebox.WordWrap = false;
-            this.writebox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AddressTextBox_KeyPress);
             // 
             // jumpminus
             // 
@@ -585,6 +590,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(295, 109);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -767,6 +773,25 @@
             this.stBox.Text = "0x00010000";
             this.stBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.tabPage5.Controls.Add(this.panel1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(277, 322);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Cheats";
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(271, 316);
+            this.panel1.TabIndex = 0;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -801,6 +826,28 @@
             this.Cain532.TabIndex = 46;
             this.Cain532.TabStop = false;
             this.Cain532.Click += new System.EventHandler(this.Cain532_Click);
+            // 
+            // rClick
+            // 
+            this.rClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manualResizeWindowToolStripMenuItem,
+            this.defaultToolStripMenuItem});
+            this.rClick.Name = "rClick";
+            this.rClick.Size = new System.Drawing.Size(197, 70);
+            // 
+            // manualResizeWindowToolStripMenuItem
+            // 
+            this.manualResizeWindowToolStripMenuItem.Name = "manualResizeWindowToolStripMenuItem";
+            this.manualResizeWindowToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.manualResizeWindowToolStripMenuItem.Text = "Manual Resize Window";
+            this.manualResizeWindowToolStripMenuItem.Click += new System.EventHandler(this.manualResizeWindowToolStripMenuItem_Click);
+            // 
+            // defaultToolStripMenuItem
+            // 
+            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.defaultToolStripMenuItem.Text = "Default";
+            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -841,6 +888,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PS4 Debugger - Cain532";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.DebugLayout.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -852,8 +900,10 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RGLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cain532)).EndInit();
+            this.rClick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -918,6 +968,11 @@
         private System.Windows.Forms.TextBox stBox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox _li;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ContextMenuStrip rClick;
+        private System.Windows.Forms.ToolStripMenuItem manualResizeWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
     }
 }
 
