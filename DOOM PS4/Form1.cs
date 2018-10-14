@@ -202,50 +202,6 @@ namespace PS4_Debugger
                 CUSA = _CUSA.ToArray();
             }
         }
-        #region Cheat Tab
-        CheatCodes cheats;
-        int g;
-        void PopCodes()
-        {
-            try
-            {
-                cheats = new CheatCodes(new WebClient().DownloadString("https://pastebin.com/raw/XNWfKUnQ"));
-                panel1.Invoke((Action)(() => panel1.Controls.Clear()));
-                CheckBox box;
-                g = 0;
-                if (!cheats.Equals(null))
-                {
-                    for (int i = 0; i < cheats.CheatNames.Length; i++)
-                    {
-                        box = new CheckBox();
-                        box.Name = i.ToString();
-                        box.Text = cheats.CheatNames[i];
-                        box.Location = new Point(10, i * 20);
-                        box.CheckedChanged += new EventHandler(chkbox_CheckedChanged);
-                        panel1.Invoke((Action)(() => panel1.Controls.Add(box)));
-                        CheckBox chkbox = this.panel1.Controls.Find((i).ToString(), true).FirstOrDefault() as CheckBox;
-                        panel1.Invoke((Action)(() => toolTip1.SetToolTip(chkbox, cheats.CheatTips[i])));
-                    }
-                }
-            }
-            catch { }
-        }
-        CheckBox chkbox;
-        private void chkbox_CheckedChanged(object sender, EventArgs e)
-        {
-            chkbox = (CheckBox)sender;
-            uint addresses = new uint();
-            string input = cheats.CheatBytes[int.Parse(chkbox.Name)].Replace("\r", "");
-            byte[] data = new byte[input.Split(':')[chkbox.Checked ? 1 : 2].Length];
-            addresses = Convert.ToUInt32(input.Split(':')[0], 16);
-            data = STB(input.Split(':')[chkbox.Checked ? 1 : 2]);
-            PS4.WriteMemory(PID, addresses, data);
-        }
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 4) PopCodes();
-        }
-        #endregion
         static int PID
         {
             get
